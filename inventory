@@ -1,6 +1,9 @@
 [web_servers]
 user1@192.168.209.130
 
+[workstations]
+user1@192.168.209.130
+
 [db_servers]
 user1@192.168.209.130
 

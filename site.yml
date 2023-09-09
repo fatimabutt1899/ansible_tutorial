@@ -12,6 +12,26 @@
     when: ansible_distribution == "Ubuntu"
 
 
+- hosts: workstations
+  become: true
+  tasks:
+  
+  - name: install unzip
+    package: 
+      name:
+        - unzip
+
+  - name: install terraform
+    unarchive:
+      src: https://releases.hashicorp.com/terraform/1.5.7/terraform_1.5.7_linux_386.zip
+      dest: /usr/local/bin
+      remote_src: yes
+      mode: 755
+      owner: root
+      group: root
+
+
+
 #web servers
 - hosts: web_servers
   become: true
