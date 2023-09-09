@@ -46,6 +46,30 @@
       state: latest
       update_cache: yes
 
+  - name: start apache2 (CentOS)
+    tags: apache, centOS, httpd
+    service:
+      name: httpd
+      state: started
+      enabled: yes
+    when: ansible_distribution == "CentOS" 
+
+  - name: change email address for admin
+    tags: apache, Ubuntu, httpd
+    lineinfile: 
+      path: /etc/httpd/conf/httpd.conf
+      regexp: '^ServerAdmin'
+      line: ServerAdmin somebody@email.com
+    when: ansible_distribution == "CentOS" 
+    register: httpd
+
+  - name: restart apache2 (CentOS)
+    tags: apache, ubuntu, httpd
+    service:
+      name: httpd
+      state: restarted
+    when: httpd.changed
+
   - name: copy default html file for site
     tags: apache, apache2, httpd
     copy: 
